@@ -1,0 +1,29 @@
+version: "3.6"
+
+services:
+    php:
+        container_name: sienge_php
+        build:
+            context: .
+            args:
+                PHP_VERSION: ${PHP_VERSION:-8.3}
+                COMPOSER_VERSION: ${COMPOSER_VERSION:-latest}
+        working_dir: /app
+        entrypoint: sh ./docker/php/entrypoint.sh
+        volumes:
+            - .:/app:rw
+            - ./docker/php/config/php.ini:/usr/local/etc/php/php.ini:rw
+            - ./docker/php/config/php-cli.ini:/usr/local/etc/php/php-cli.ini:rw
+
+    mysql:
+        container_name: sienge_mysql
+        image: mysql:8
+        volumes:
+            - './docker/mysql/data:/var/lib/mysql'
+        environment:
+            MYSQL_USER: '${MYSQL_USER:-dev}'
+            MYSQL_PASSWORD: '${MYSQL_PASSWORD:-nopassword}'
+            MYSQL_ROOT_PASSWORD: '${MYSQL_PASSWORD:-nopassword}'
+            MYSQL_DATABASE: '${MYSQL_DB_NAME:-dev}'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+        restart: always

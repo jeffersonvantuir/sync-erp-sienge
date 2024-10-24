@@ -18,6 +18,8 @@ services:
     mysql:
         container_name: sienge_mysql
         image: mysql:8
+        ports:
+            -  "3307:3306"
         volumes:
             - './docker/mysql/data:/var/lib/mysql'
         environment:

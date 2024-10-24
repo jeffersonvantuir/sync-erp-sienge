@@ -210,3 +210,76 @@ $stmt = $pdo->prepare("
     )
 ");
 $stmt->execute();
+
+$stmt = $pdo->prepare("
+    CREATE TABLE IF NOT EXISTS commissions (
+        commission_id INT PRIMARY KEY,
+        enterprise_id INT,
+        enterprise_name VARCHAR(255),
+        bill_number INT,
+        customer_id INT,
+        customer_name VARCHAR(255),
+        customer_situation_type VARCHAR(50),
+        unit_name VARCHAR(255),
+        broker_id INT,
+        broker_name VARCHAR(255),
+        billing_broker_id INT,
+        billing_broker_name VARCHAR(255),
+        block_edit BOOLEAN,
+        value DECIMAL(15,2),
+        installment_percentage DECIMAL(5,2),
+        installment_status VARCHAR(50),
+        payment_operation_type VARCHAR(50),
+        sales_contract_number VARCHAR(50),
+        contract_bill_number INT,
+        contract_percentage_paid DECIMAL(5,2),
+        consider_embedded_interest BOOLEAN,
+        commission_released_to_be_paid BOOLEAN,
+        commission_released_automatically BOOLEAN,
+        due_date DATE,
+        installment_number INT,
+        total_installments_number INT
+    )
+");
+$stmt->execute();
+
+$stmt = $pdo->prepare("
+    CREATE TABLE IF NOT EXISTS creditors (
+        id INT PRIMARY KEY,
+        name VARCHAR(255),
+        trade_name VARCHAR(255),
+        cpf VARCHAR(20),
+        cnpj VARCHAR(20),
+        supplier CHAR(1),
+        broker CHAR(1),
+        employee CHAR(1),
+        active BOOLEAN,
+        state_registration_number VARCHAR(50),
+        state_registration_type VARCHAR(50),
+        payment_type_id INT,
+        city_id INT,
+        city_name VARCHAR(255),
+        street_name VARCHAR(255),
+        number VARCHAR(50),
+        complement VARCHAR(255),
+        neighborhood VARCHAR(255),
+        state VARCHAR(50),
+        zip_code VARCHAR(20)
+    )
+");
+$stmt->execute();
+
+$stmt = $pdo->prepare("
+    CREATE TABLE IF NOT EXISTS creditor_phones (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        creditor_id INT,
+        ddd VARCHAR(10),
+        number VARCHAR(20),
+        main BOOLEAN,
+        type INT,
+        extension VARCHAR(10),
+        observation TEXT,
+        FOREIGN KEY (creditor_id) REFERENCES creditors(id)
+    )
+");
+$stmt->execute();

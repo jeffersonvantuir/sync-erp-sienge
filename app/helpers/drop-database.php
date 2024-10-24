@@ -14,6 +14,9 @@ $tables = [
     'sales_contract_payment_conditions',
     'sales_contracts',
     'real_estate_units',
+    'commissions',
+    'creditor_phones',
+    'creditors',
 ];
 
 foreach ($tables as $table) {

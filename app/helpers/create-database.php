@@ -283,3 +283,32 @@ $stmt = $pdo->prepare("
     )
 ");
 $stmt->execute();
+
+$stmt = $pdo->prepare("
+    CREATE TABLE IF NOT EXISTS sales_commissions (
+        id INT PRIMARY KEY,
+        contract_id INT,
+        broker_id INT,
+        customer_id INT,
+        installments_number INT,
+        bill_id INT,
+        rate DECIMAL(5,2),
+        value DECIMAL(15,2),
+        base_value DECIMAL(15,2),
+        type CHAR(1)
+    )
+");
+$stmt->execute();
+
+$stmt = $pdo->prepare("
+        CREATE TABLE IF NOT EXISTS sales_commission_installments (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        commission_id INT,
+        installment_id INT,
+        due_date DATE,
+        amount DECIMAL(15,2),
+        status VARCHAR(50),
+        FOREIGN KEY (commission_id) REFERENCES sales_commissions(id)
+    )
+");
+$stmt->execute();

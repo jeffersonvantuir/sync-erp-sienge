@@ -17,6 +17,8 @@ $tables = [
     'commissions',
     'creditor_phones',
     'creditors',
+    'sales_commission_installments',
+    'sales_commissions',
 ];
 
 foreach ($tables as $table) {

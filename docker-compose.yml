@@ -9,7 +9,6 @@ services:
                 PHP_VERSION: ${PHP_VERSION:-8.3}
                 COMPOSER_VERSION: ${COMPOSER_VERSION:-latest}
         working_dir: /app
-        entrypoint: sh ./docker/php/entrypoint.sh
         volumes:
             - .:/app:rw
             - ./docker/php/config/php.ini:/usr/local/etc/php/php.ini:rw
